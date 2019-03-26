@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+source $(dirname $0)/version
+cd $(dirname $0)/..
+
+# kernel
+pushd build/ubuntu-kernel-*/
+fakeroot debian/rules clean
+fakeroot debian/rules binary-headers binary-generic
+popd
+

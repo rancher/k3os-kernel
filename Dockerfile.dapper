@@ -1,0 +1,52 @@
+FROM gcc:8.3
+# FROM arm64=arm64v8/gcc:8.3
+
+RUN apt-get update \
+    && apt-get install -y \
+        kernel-wedge \
+        libncurses-dev \
+        fakeroot \
+        cpio \
+        bison \
+        flex \
+        ccache \
+        vim \
+        gnupg2 \
+        locales \
+        bc \
+        kmod \
+        libelf-dev \
+        rsync \
+        gawk  \
+        libudev-dev \
+        pciutils-dev \
+    && rm -f /bin/sh && ln -s /bin/bash /bin/sh
+
+########## Dapper Configuration #####################
+
+ENV DAPPER_ENV VERSION DEBUG
+ENV DAPPER_DOCKER_SOCKET true
+ENV DAPPER_SOURCE /source
+ENV DAPPER_OUTPUT ./bin ./dist ./build
+ENV DAPPER_RUN_ARGS --privileged
+ENV SHELL /bin/bash
+WORKDIR ${DAPPER_SOURCE}
+
+########## General Configuration #####################
+ARG DAPPER_HOST_ARCH
+ENV ARCH $DAPPER_HOST_ARCH
+
+ARG UBUNTU_KERNEL_VERSION=5.0.0-7.8
+ARG KERNEL_SOURCE_URL=https://github.com/niusmallnan/ubuntu-kernel/archive/Ubuntu-${UBUNTU_KERNEL_VERSION}-rancher1.tar.gz
+
+ARG FIRMWARE_VERSION=20190312
+ARG FIRMWARE_URL=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${FIRMWARE_VERSION}.tar.gz
+
+ENV UBUNTU_KERNEL_VERSION=${UBUNTU_KERNEL_VERSION} \
+    KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
+    FIRMWARE_VERSION=${FIRMWARE_VERSION} \
+    FIRMWARE_URL=${FIRMWARE_URL} \
+    DOWNLOADS=/usr/src/downloads
+
+ENTRYPOINT ["./scripts/entry"]
+CMD ["ci"]

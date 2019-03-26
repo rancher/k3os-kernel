@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+source $(dirname $0)/version
+cd $(dirname $0)/..
+
+curl -sSL -o ${DOWNLOADS}/ubuntu-kernel.tar.gz ${KERNEL_SOURCE_URL}
+tar xf ${DOWNLOADS}/ubuntu-kernel.tar.gz -C ./build
+
+pushd .
+cd build/
+for p in patches/*.patch; do
+    echo "patching $p"
+    patch -p1 -i $p
+done
+popd
+

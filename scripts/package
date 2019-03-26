@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+source $(dirname $0)/version
+cd $(dirname $0)/..
+
+mkdir dist/main dist/modules-extra
+
+KERNEL_BASE_DIR=build/ubuntu-kernel-*/debian
+# headers
+#cp -rf build/debian/linux-headers-*/usr/src dist/headers/usr/
+
+# main modules and vmlinuz
+cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot dist/main/
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot dist/main/
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib dist/main/
+
+# extra modules
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib dist/modules-extra/
+
+
+mkdir dist/artifacts
+pushd dist/main/
+tar czf ../artifacts/kernel.tar.gz .
+popd
+
+pushd dist/modules-extra
+tar czf ../artifacts/kernel-extra.tar.gz .
+popd
+
+# firmware
+curl -sSL -o dist/artifacts/firmware.tar.gz ${FIRMWARE_URL}
