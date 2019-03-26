@@ -15,9 +15,9 @@ curl -sSL -o ${DOWNLOADS}/firmware.tar.gz ${FIRMWARE_URL}
 tar -xf ${DOWNLOADS}/firmware.tar.gz -C ./build/firmware
 
 # patches
-pushd .
-cd build/
-for p in patches/*.patch; do
+PATCHES_DIR=$(pwd)/patches
+pushd build/kernel
+for p in `find ${PATCHES_DIR} -name "*.patch"`; do
     echo "patching $p"
     patch -p1 -i $p
 done
