@@ -36,8 +36,8 @@ WORKDIR ${DAPPER_SOURCE}
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-ARG UBUNTU_KERNEL_VERSION=5.0.0-7.8
-ARG KERNEL_SOURCE_URL=https://github.com/niusmallnan/ubuntu-kernel/archive/Ubuntu-${UBUNTU_KERNEL_VERSION}-rancher1.tar.gz
+ARG UBUNTU_KERNEL_VERSION=Ubuntu-5.0.0-7.8-rancher1
+ARG KERNEL_SOURCE_URL=https://github.com/niusmallnan/ubuntu-kernel/archive/${UBUNTU_KERNEL_VERSION}.tar.gz
 
 ARG UBUNTU_FIRMWARE_VERSION=Ubuntu-1.178-rancher1
 ARG FIRMWARE_URL=https://github.com/niusmallnan/ubuntu-firmware/archive/${UBUNTU_FIRMWARE_VERSION}.tar.gz
