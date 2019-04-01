@@ -39,12 +39,10 @@ ENV ARCH $DAPPER_HOST_ARCH
 ARG UBUNTU_KERNEL_VERSION=5.0.0-7.8
 ARG KERNEL_SOURCE_URL=https://github.com/niusmallnan/ubuntu-kernel/archive/Ubuntu-${UBUNTU_KERNEL_VERSION}-rancher1.tar.gz
 
-ARG FIRMWARE_VERSION=20190312
-ARG FIRMWARE_URL=https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${FIRMWARE_VERSION}.tar.gz
+ARG UBUNTU_FIRMWARE_VERSION=Ubuntu-1.178-rancher1
+ARG FIRMWARE_URL=https://github.com/niusmallnan/ubuntu-firmware/archive/${UBUNTU_FIRMWARE_VERSION}.tar.gz
 
-ENV UBUNTU_KERNEL_VERSION=${UBUNTU_KERNEL_VERSION} \
-    KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
-    FIRMWARE_VERSION=${FIRMWARE_VERSION} \
+ENV KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
     FIRMWARE_URL=${FIRMWARE_URL} \
     DOWNLOADS=/usr/src/downloads
 

@@ -7,7 +7,7 @@ cd $(dirname $0)/..
 mkdir -p dist/main dist/modules-extra
 
 KERNEL_BASE_DIR=build/kernel/ubuntu-kernel-*/debian
-FIRMWARE_BASE_DIR=build/firmware/linux-firmware-*
+FIRMWARE_BASE_DIR=build/firmware/ubuntu-firmware-*
 # headers
 #cp -rf build/debian/linux-headers-*/usr/src dist/headers/usr/
 

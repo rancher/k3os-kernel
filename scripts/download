@@ -12,7 +12,7 @@ tar xf ${DOWNLOADS}/ubuntu-kernel.tar.gz -C ./build/kernel
 # firmware
 mkdir -p build/firmware
 curl -sSL -o ${DOWNLOADS}/firmware.tar.gz ${FIRMWARE_URL}
-tar -xf ${DOWNLOADS}/firmware.tar.gz -C ./build/firmware
+tar xf ${DOWNLOADS}/firmware.tar.gz -C ./build/firmware
 
 # patches
 PATCHES_DIR=$(pwd)/patches
