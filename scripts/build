@@ -7,6 +7,6 @@ cd $(dirname $0)/..
 # kernel
 pushd build/kernel/ubuntu-kernel-*/
 fakeroot debian/rules clean
-fakeroot debian/rules binary-headers binary-generic
+fakeroot debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false
 popd
 
