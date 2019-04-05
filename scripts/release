@@ -5,3 +5,14 @@ source $(dirname $0)/version
 cd $(dirname $0)/..
 
 ./scripts/ci
+
+echo
+echo "to publish release to github, run dist/publish.sh"
+
+echo "#!/bin/sh"> dist/publish.sh
+#echo "hub release create -t ${COMMIT} -m v${RELEASE_VERSION} v${RELEASE_VERSION}" >> dist/publish.sh
+echo "for f in \$(ls ./dist/artifacts) ; do" >> dist/publish.sh
+echo "   hub release edit -m ${VERSION} -a ./dist/artifacts/\${f} ${VERSION}" >> dist/publish.sh
+echo "done" >> dist/publish.sh
+
+chmod 755 dist/publish.sh
