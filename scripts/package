@@ -28,9 +28,9 @@ popd
 
 mkdir -p dist/artifacts
 pushd dist/main/
-tar czf ../artifacts/kernel_${ARCH}.tar.gz .
+tar cvJf ../artifacts/kernel_${ARCH}.tar.xz .
 popd
 
 pushd dist/modules-extra
-tar czf ../artifacts/kernel-extra_${ARCH}.tar.gz .
+tar cvJf ../artifacts/kernel-extra_${ARCH}.tar.xz .
 popd
