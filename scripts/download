@@ -4,14 +4,16 @@ set -e
 source $(dirname $0)/version
 cd $(dirname $0)/..
 
+mkdir -p ${DOWNLOADS}
+
 # kernel
 mkdir -p build/kernel
-curl -sSL -o ${DOWNLOADS}/ubuntu-kernel.tar.gz ${KERNEL_SOURCE_URL}
+curl -fL -o ${DOWNLOADS}/ubuntu-kernel.tar.gz ${KERNEL_SOURCE_URL}
 tar xf ${DOWNLOADS}/ubuntu-kernel.tar.gz -C ./build/kernel
 
 # firmware
 mkdir -p build/firmware
-curl -sSL -o ${DOWNLOADS}/firmware.tar.gz ${FIRMWARE_URL}
+curl -fL -o ${DOWNLOADS}/firmware.tar.gz ${FIRMWARE_URL}
 tar xf ${DOWNLOADS}/firmware.tar.gz -C ./build/firmware
 
 # patches

@@ -4,29 +4,35 @@ set -e
 source $(dirname $0)/version
 cd $(dirname $0)/..
 
-mkdir -p dist/main dist/modules-extra
+mkdir -p dist/headers dist/main dist/modules-extra
 
 KERNEL_BASE_DIR=build/kernel/ubuntu-kernel-*/debian
 FIRMWARE_BASE_DIR=build/firmware/ubuntu-firmware-*
-# headers
-#cp -rf build/debian/linux-headers-*/usr/src dist/headers/usr/
 
-# main modules and vmlinuz
+# headers
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr dist/headers/
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib dist/headers/
+
+# main modules and vmlinuz and firmware
 cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot dist/main/
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot dist/main/
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib dist/main/
-
-# extra modules
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib dist/modules-extra/
-
-# firmware
 FIRMWARE_DESTDIR=$(pwd)/dist/main
 pushd ${FIRMWARE_BASE_DIR}
 rm -f *.py
 DESTDIR=${FIRMWARE_DESTDIR} make install
 popd
 
+# extra modules
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib dist/modules-extra/
+
+# package artifacts
 mkdir -p dist/artifacts
+
+pushd dist/headers
+tar cvJf ../artifacts/kernel-headers_${ARCH}.tar.xz .
+popd
+
 pushd dist/main/
 tar cvJf ../artifacts/kernel_${ARCH}.tar.xz .
 popd
