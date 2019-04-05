@@ -4,39 +4,47 @@ set -e
 source $(dirname $0)/version
 cd $(dirname $0)/..
 
-mkdir -p dist/headers dist/main dist/modules-extra
+#
+# Currently only package the generic artifacts
+#
+
+GENERIC_HEADERS_DIR=dist/generic/headers
+GENERIC_MAIN_DIR=dist/generic/main
+GENERIC_EXTRA_DIR=dist/generic/modules-extra
+
+mkdir -p ${GENERIC_HEADERS_DIR} ${GENERIC_MAIN_DIR} ${GENERIC_EXTRA_DIR}
 
 KERNEL_BASE_DIR=build/kernel/ubuntu-kernel-*/debian
 FIRMWARE_BASE_DIR=build/firmware/ubuntu-firmware-*
 
 # headers
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr dist/headers/
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib dist/headers/
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}
 
 # main modules and vmlinuz and firmware
-cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot dist/main/
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot dist/main/
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib dist/main/
-FIRMWARE_DESTDIR=$(pwd)/dist/main
+cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot ${GENERIC_MAIN_DIR}
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot ${GENERIC_MAIN_DIR}
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib ${GENERIC_MAIN_DIR}
+FIRMWARE_DESTDIR=$(pwd)/${GENERIC_MAIN_DIR}
 pushd ${FIRMWARE_BASE_DIR}
 rm -f *.py
 DESTDIR=${FIRMWARE_DESTDIR} make install
 popd
 
 # extra modules
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib dist/modules-extra/
+cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib ${GENERIC_EXTRA_DIR}
 
 # package artifacts
 mkdir -p dist/artifacts
 
-pushd dist/headers
-tar cvJf ../artifacts/kernel-headers_${ARCH}.tar.xz .
+pushd ${GENERIC_HEADERS_DIR}
+tar cvJf ../../artifacts/kernel-headers-generic_${ARCH}.tar.xz .
 popd
 
-pushd dist/main/
-tar cvJf ../artifacts/kernel_${ARCH}.tar.xz .
+pushd ${GENERIC_MAIN_DIR}
+tar cvJf ../../artifacts/kernel-generic_${ARCH}.tar.xz .
 popd
 
-pushd dist/modules-extra
-tar cvJf ../artifacts/kernel-extra_${ARCH}.tar.xz .
+pushd ${GENERIC_EXTRA_DIR}
+tar cvJf ../../artifacts/kernel-extra-generic_${ARCH}.tar.xz .
 popd
