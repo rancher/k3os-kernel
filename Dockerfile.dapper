@@ -36,11 +36,11 @@ WORKDIR ${DAPPER_SOURCE}
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-ARG UBUNTU_KERNEL_VERSION=Ubuntu-5.0.0-8.9-rancher1
-ARG KERNEL_SOURCE_URL=https://github.com/niusmallnan/ubuntu-kernel/archive/${UBUNTU_KERNEL_VERSION}.tar.gz
+# https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/disco
+ARG KERNEL_SOURCE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-source-5.0.0_5.0.0-8.9_all.deb
 
-ARG UBUNTU_FIRMWARE_VERSION=Ubuntu-1.178-rancher1
-ARG FIRMWARE_URL=https://github.com/niusmallnan/ubuntu-firmware/archive/${UBUNTU_FIRMWARE_VERSION}.tar.gz
+# https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux-firmware
+ARG FIRMWARE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.178_all.deb
 
 ENV KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
     FIRMWARE_URL=${FIRMWARE_URL} \

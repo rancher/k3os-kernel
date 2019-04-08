@@ -4,8 +4,14 @@ set -e
 source $(dirname $0)/version
 cd $(dirname $0)/..
 
+KERNEL_DIR=build/kernel
+
+# some hacking
+mkdir -p ${KERNEL_DIR}/debian/stamps
+
+
 # kernel
-pushd build/kernel/ubuntu-kernel-*/
+pushd ${KERNEL_DIR}
 fakeroot debian/rules clean
 fakeroot debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false
 popd

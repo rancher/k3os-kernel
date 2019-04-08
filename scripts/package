@@ -14,8 +14,8 @@ GENERIC_EXTRA_DIR=dist/generic/modules-extra
 
 mkdir -p ${GENERIC_HEADERS_DIR} ${GENERIC_MAIN_DIR} ${GENERIC_EXTRA_DIR}
 
-KERNEL_BASE_DIR=build/kernel/ubuntu-kernel-*/debian
-FIRMWARE_BASE_DIR=build/firmware/ubuntu-firmware-*
+KERNEL_BASE_DIR=build/kernel/debian
+FIRMWARE_BASE_DIR=build/firmware
 
 # headers
 cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}
@@ -25,11 +25,8 @@ cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot ${GENERIC_MAIN_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot ${GENERIC_MAIN_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib ${GENERIC_MAIN_DIR}
-FIRMWARE_DESTDIR=$(pwd)/${GENERIC_MAIN_DIR}
-pushd ${FIRMWARE_BASE_DIR}
-rm -f *.py
-DESTDIR=${FIRMWARE_DESTDIR} make install
-popd
+mkdir -p ${GENERIC_MAIN_DIR}/lib/firmware
+cp -rf ${FIRMWARE_BASE_DIR}/* ${GENERIC_MAIN_DIR}/lib/firmware
 
 # extra modules
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib ${GENERIC_EXTRA_DIR}
