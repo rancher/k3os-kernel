@@ -22,7 +22,11 @@ cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}
 
 # main modules and vmlinuz and firmware
-cp -rf ${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic/boot ${GENERIC_MAIN_DIR}
+IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic
+if [ ! -d ${IMAGE_GENERIC_DIR} ]; then
+    IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-*-generic
+fi
+cp -rf ${IMAGE_GENERIC_DIR}/boot ${GENERIC_MAIN_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot ${GENERIC_MAIN_DIR}
 cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib ${GENERIC_MAIN_DIR}
 mkdir -p ${GENERIC_MAIN_DIR}/lib/firmware
