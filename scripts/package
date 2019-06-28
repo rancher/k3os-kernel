@@ -4,10 +4,6 @@ set -e
 source $(dirname $0)/version
 cd $(dirname $0)/..
 
-#
-# Currently only package the generic artifacts
-#
-
 GENERIC_HEADERS_DIR=dist/generic/headers
 GENERIC_MAIN_DIR=dist/generic/main
 GENERIC_EXTRA_DIR=dist/generic/modules-extra
@@ -18,8 +14,13 @@ KERNEL_BASE_DIR=build/kernel/debian
 FIRMWARE_BASE_DIR=build/firmware
 
 # headers
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}
+headerdir=$(basename ${KERNEL_BASE_DIR}/linux-headers-*[0-9])
+mkdir -p ${GENERIC_HEADERS_DIR}/$headerdir
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*[0-9]/usr ${GENERIC_HEADERS_DIR}/$headerdir
+gheaderdir=$(basename ${KERNEL_BASE_DIR}/linux-headers-*-generic)
+mkdir -p ${GENERIC_HEADERS_DIR}/$gheaderdir
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}/$gheaderdir
+cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}/$gheaderdir
 
 # main modules and vmlinuz and firmware
 IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic
