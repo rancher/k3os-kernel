@@ -40,13 +40,16 @@ cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib ${GENERIC_EXTRA_DIR}
 mkdir -p dist/artifacts
 
 pushd ${GENERIC_HEADERS_DIR}
-tar cvJf ../../artifacts/kernel-headers-generic_${ARCH}.tar.xz .
+echo Creating artifacts/kernel-headers-generic_${ARCH}.tar.xz
+tar cJf ../../artifacts/kernel-headers-generic_${ARCH}.tar.xz .
 popd
 
 pushd ${GENERIC_MAIN_DIR}
-tar cvJf ../../artifacts/kernel-generic_${ARCH}.tar.xz .
+echo Creating artifacts/kernel-generic_${ARCH}.tar.xz
+tar cJf ../../artifacts/kernel-generic_${ARCH}.tar.xz .
 popd
 
 pushd ${GENERIC_EXTRA_DIR}
-tar cvJf ../../artifacts/kernel-extra-generic_${ARCH}.tar.xz .
+echo Creating artifacts/kernel-extra-generic_${ARCH}.tar.xz
+tar cJf ../../artifacts/kernel-extra-generic_${ARCH}.tar.xz .
 popd
