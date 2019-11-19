@@ -14,39 +14,34 @@ KERNEL_BASE_DIR=build/kernel/debian
 FIRMWARE_BASE_DIR=build/firmware
 
 # headers
-headerdir=$(basename ${KERNEL_BASE_DIR}/linux-headers-*[0-9])
-mkdir -p ${GENERIC_HEADERS_DIR}/$headerdir
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*[0-9]/usr ${GENERIC_HEADERS_DIR}/$headerdir
-gheaderdir=$(basename ${KERNEL_BASE_DIR}/linux-headers-*-generic)
-mkdir -p ${GENERIC_HEADERS_DIR}/$gheaderdir
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr ${GENERIC_HEADERS_DIR}/$gheaderdir
-cp -rf ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib ${GENERIC_HEADERS_DIR}/$gheaderdir
+rsync -av ${KERNEL_BASE_DIR}/linux-headers-*[0-9]/usr/ ${GENERIC_HEADERS_DIR}/usr/
+rsync -av ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr/ ${GENERIC_HEADERS_DIR}/usr/
+rsync -av ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib/ ${GENERIC_HEADERS_DIR}/lib/
 
 # main modules and vmlinuz and firmware
 IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic
 if [ ! -d ${IMAGE_GENERIC_DIR} ]; then
     IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-*-generic
 fi
-cp -rf ${IMAGE_GENERIC_DIR}/boot ${GENERIC_MAIN_DIR}
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/boot ${GENERIC_MAIN_DIR}
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-*-generic/lib ${GENERIC_MAIN_DIR}
-mkdir -p ${GENERIC_MAIN_DIR}/lib/firmware
-cp -rf ${FIRMWARE_BASE_DIR}/* ${GENERIC_MAIN_DIR}/lib/firmware
+rsync -av ${IMAGE_GENERIC_DIR}/boot/ ${GENERIC_MAIN_DIR}/boot/
+rsync -av ${KERNEL_BASE_DIR}/linux-modules-[0-9]*-generic/boot/ ${GENERIC_MAIN_DIR}/boot/
+rsync -av ${KERNEL_BASE_DIR}/linux-modules-[0-9]*-generic/lib/ ${GENERIC_MAIN_DIR}/lib/
+rsync -av ${FIRMWARE_BASE_DIR}/ ${GENERIC_MAIN_DIR}/lib/firmware/
 
 # extra modules
-cp -rf ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib ${GENERIC_EXTRA_DIR}
+rsync -av ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib/ ${GENERIC_EXTRA_DIR}
 
 # package artifacts
 mkdir -p dist/artifacts
 
 pushd ${GENERIC_HEADERS_DIR}
-tar cvJf ../../artifacts/kernel-headers-generic_${ARCH}.tar.xz .
+time sh -xc "tar cJf ../../artifacts/kernel-headers-generic_${ARCH}.tar.xz ."
 popd
 
 pushd ${GENERIC_MAIN_DIR}
-tar cvJf ../../artifacts/kernel-generic_${ARCH}.tar.xz .
+time sh -xc "tar cJf ../../artifacts/kernel-generic_${ARCH}.tar.xz ."
 popd
 
 pushd ${GENERIC_EXTRA_DIR}
-tar cvJf ../../artifacts/kernel-extra-generic_${ARCH}.tar.xz .
+time sh -xc "tar cJf ../../artifacts/kernel-extra-generic_${ARCH}.tar.xz ."
 popd
