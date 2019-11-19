@@ -1,0 +1,12 @@
+diff -urbB kernel.unpatched/debian.hwe/config/config.common.ubuntu kernel/debian.hwe/config/config.common.ubuntu
+--- kernel.unpatched/debian.hwe/config/config.common.ubuntu	2019-09-30 22:23:05.000000000 +0000
++++ kernel/debian.hwe/config/config.common.ubuntu	2019-10-15 01:24:35.804607723 +0000
+@@ -1121,7 +1121,7 @@
+ CONFIG_BOOT_PRINTK_DELAY=y
+ CONFIG_BPF=y
+ CONFIG_BPFILTER=y
+-CONFIG_BPFILTER_UMH=m
++CONFIG_BPFILTER_UMH=y
+ CONFIG_BPF_EVENTS=y
+ CONFIG_BPF_JIT=y
+ CONFIG_BPF_KPROBE_OVERRIDE=y
