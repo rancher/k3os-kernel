@@ -37,10 +37,10 @@ ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
 # https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/disco
-ARG KERNEL_SOURCE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe/linux-source-5.0.0_5.0.0-36.39~18.04.1_all.deb
+ARG KERNEL_SOURCE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe/linux-source-5.0.0_5.0.0-37.40~18.04.1_all.deb
 
 # https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux-firmware
-ARG FIRMWARE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.173.12_all.deb
+ARG FIRMWARE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.173.13_all.deb
 
 ENV KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
     FIRMWARE_URL=${FIRMWARE_URL} \
