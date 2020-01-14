@@ -29,7 +29,7 @@ rsync -av ${KERNEL_BASE_DIR}/linux-modules-[0-9]*-generic/lib/ ${GENERIC_MAIN_DI
 rsync -av ${FIRMWARE_BASE_DIR}/ ${GENERIC_MAIN_DIR}/lib/firmware/
 
 # extra modules
-rsync -av ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib/ ${GENERIC_EXTRA_DIR}
+rsync -av ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib/ ${GENERIC_EXTRA_DIR}/lib/
 
 # package artifacts
 mkdir -p dist/artifacts
