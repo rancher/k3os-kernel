@@ -10,26 +10,17 @@ GENERIC_EXTRA_DIR=dist/generic/modules-extra
 
 mkdir -p ${GENERIC_HEADERS_DIR} ${GENERIC_MAIN_DIR} ${GENERIC_EXTRA_DIR}
 
-KERNEL_BASE_DIR=build/kernel/debian
-FIRMWARE_BASE_DIR=build/firmware
-
 # headers
-rsync -av ${KERNEL_BASE_DIR}/linux-headers-*[0-9]/usr/ ${GENERIC_HEADERS_DIR}/usr/
-rsync -av ${KERNEL_BASE_DIR}/linux-headers-*-generic/usr/ ${GENERIC_HEADERS_DIR}/usr/
-rsync -av ${KERNEL_BASE_DIR}/linux-headers-*-generic/lib/ ${GENERIC_HEADERS_DIR}/lib/
+dpkg-deb -x build/linux-headers-5.0.*.deb ${GENERIC_HEADERS_DIR}/
+dpkg-deb -x build/linux-hwe-5.0-headers-*.deb ${GENERIC_HEADERS_DIR}/
 
 # main modules and vmlinuz and firmware
-IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-unsigned-*-generic
-if [ ! -d ${IMAGE_GENERIC_DIR} ]; then
-    IMAGE_GENERIC_DIR=${KERNEL_BASE_DIR}/linux-image-*-generic
-fi
-rsync -av ${IMAGE_GENERIC_DIR}/boot/ ${GENERIC_MAIN_DIR}/boot/
-rsync -av ${KERNEL_BASE_DIR}/linux-modules-[0-9]*-generic/boot/ ${GENERIC_MAIN_DIR}/boot/
-rsync -av ${KERNEL_BASE_DIR}/linux-modules-[0-9]*-generic/lib/ ${GENERIC_MAIN_DIR}/lib/
-rsync -av ${FIRMWARE_BASE_DIR}/ ${GENERIC_MAIN_DIR}/lib/firmware/
+dpkg-deb -x build/linux-image-unsigned-5.0.*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x build/linux-modules-5.0*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x ${DOWNLOADS}/ubuntu-firmware.deb ${GENERIC_MAIN_DIR}
 
 # extra modules
-rsync -av ${KERNEL_BASE_DIR}/linux-modules-extra-*-generic/lib/ ${GENERIC_EXTRA_DIR}/lib/
+dpkg-deb -x build/linux-modules-extra-5.0*.deb ${GENERIC_EXTRA_DIR}
 
 # package artifacts
 mkdir -p dist/artifacts

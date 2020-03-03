@@ -1,6 +1,24 @@
-FROM gcc:8.3
-# FROM arm64=arm64v8/gcc:8.3
+ARG APT_GCC=library/gcc:9.2
 
+FROM library/ubuntu:bionic AS bionic
+ARG DOWNLOADS=/usr/src/downloads
+ARG LINUX_FIRMWARE=linux-firmware=1.173.15
+ARG LINUX_SOURCE=linux-source-5.0.0=5.0.0-41.45~18.04.1
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN set -x \
+ && apt-get --assume-yes update \
+ && apt-get --assume-yes download \
+    ${LINUX_FIRMWARE} \
+    ${LINUX_SOURCE} \
+ && mkdir -vp ${DOWNLOADS} \
+ && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
+ && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
+
+
+FROM ${APT_GCC}
+ARG DOWNLOADS=/usr/src/downloads
+COPY --from=bionic ${DOWNLOADS}/ ${DOWNLOADS}/
 RUN apt-get update \
     && apt-get install -y \
         kernel-wedge \
@@ -35,16 +53,7 @@ WORKDIR ${DAPPER_SOURCE}
 ########## General Configuration #####################
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
-
-# https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/disco
-ARG KERNEL_SOURCE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe/linux-source-5.0.0_5.0.0-37.40~18.04.1_all.deb
-
-# https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux-firmware
-ARG FIRMWARE_URL=http://archive.ubuntu.com/ubuntu/pool/main/l/linux-firmware/linux-firmware_1.173.14_all.deb
-
-ENV KERNEL_SOURCE_URL=${KERNEL_SOURCE_URL} \
-    FIRMWARE_URL=${FIRMWARE_URL} \
-    DOWNLOADS=/usr/src/downloads
+ENV DOWNLOADS ${DOWNLOADS}
 
 ENTRYPOINT ["./scripts/entry"]
 CMD ["ci"]

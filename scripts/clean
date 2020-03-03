@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -rf $(dirname "$0")/../build
+rm -rf $(dirname "$0")/../dist
+rm -f $(dirname "$0")/../Dockerfile.dapper[0-9]*
