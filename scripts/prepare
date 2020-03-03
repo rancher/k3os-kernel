@@ -8,16 +8,14 @@ mkdir -p ${DOWNLOADS}/kernel ${DOWNLOADS}/firmware
 
 # kernel
 mkdir -p build/kernel
-curl -fL -o ${DOWNLOADS}/ubuntu-kernel.deb ${KERNEL_SOURCE_URL}
 dpkg-deb -x ${DOWNLOADS}/ubuntu-kernel.deb ${DOWNLOADS}/kernel
 rsync -a ${DOWNLOADS}/kernel/usr/src/linux-source-*/debian* ./build/kernel/
 tar xf ${DOWNLOADS}/kernel/usr/src/linux-source-*/linux-source*.tar.bz2 -C ./build/kernel/. --strip-components=1
 
-# firmware
-mkdir -p build/firmware
-curl -fL -o ${DOWNLOADS}/ubuntu-firmware.deb ${FIRMWARE_URL}
-dpkg-deb -x ${DOWNLOADS}/ubuntu-firmware.deb ${DOWNLOADS}/firmware
-rsync -a ${DOWNLOADS}/firmware/lib/firmware/* ./build/firmware/
+## firmware
+#mkdir -p build/firmware
+#dpkg-deb -x ${DOWNLOADS}/ubuntu-firmware.deb ${DOWNLOADS}/firmware
+#rsync -a ${DOWNLOADS}/firmware/lib/firmware/* ./build/firmware/
 
 # patches
 PATCHES_DIR=$(pwd)/patches
