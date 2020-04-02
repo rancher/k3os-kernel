@@ -24,4 +24,16 @@ for p in `find ${PATCHES_DIR} -name "*.patch"`; do
     echo "applying $p"
     patch -p1 -i $p
 done
+
+# https://www.wireguard.com/compilation/
+WG_URL="https://git.zx2c4.com"
+WG_REPO="wireguard-linux-compat"
+WG_DIR=$(mktemp -d)
+git clone "${WG_URL}/${WG_REPO}" "$WG_DIR"
+${WG_DIR}/kernel-tree-scripts/create-patch.sh | patch -p1
+
+CONFIG="debian.hwe/config/config.common.ubuntu"
+echo CONFIG_WIREGUARD=m >> $CONFIG
+echo CONFIG_WIREGUARD_DEBUG=n >> $CONFIG
+
 popd
