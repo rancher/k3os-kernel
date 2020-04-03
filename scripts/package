@@ -11,16 +11,16 @@ GENERIC_EXTRA_DIR=dist/generic/modules-extra
 mkdir -p ${GENERIC_HEADERS_DIR} ${GENERIC_MAIN_DIR} ${GENERIC_EXTRA_DIR}
 
 # headers
-dpkg-deb -x build/linux-headers-5.0.*.deb ${GENERIC_HEADERS_DIR}/
-dpkg-deb -x build/linux-hwe-5.0-headers-*.deb ${GENERIC_HEADERS_DIR}/
+dpkg-deb -x build/linux-headers-5.*.deb ${GENERIC_HEADERS_DIR}/
+#dpkg-deb -x build/linux-hwe-5.*-headers-*.deb ${GENERIC_HEADERS_DIR}/
 
 # main modules and vmlinuz and firmware
-dpkg-deb -x build/linux-image-unsigned-5.0.*.deb ${GENERIC_MAIN_DIR}
-dpkg-deb -x build/linux-modules-5.0*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x build/linux-image-unsigned-5.*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x build/linux-modules-5.*.deb ${GENERIC_MAIN_DIR}
 dpkg-deb -x ${DOWNLOADS}/ubuntu-firmware.deb ${GENERIC_MAIN_DIR}
 
 # extra modules
-dpkg-deb -x build/linux-modules-extra-5.0*.deb ${GENERIC_EXTRA_DIR}
+dpkg-deb -x build/linux-modules-extra-5.*.deb ${GENERIC_EXTRA_DIR}
 
 # package artifacts
 mkdir -p dist/artifacts

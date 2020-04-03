@@ -1,10 +1,11 @@
-ARG APT_GCC=library/gcc:9.2
-
-FROM library/ubuntu:bionic AS bionic
+ARG BUILD=library/buildpack-deps:focal
+ARG UBUNTU=library/ubuntu:focal
 ARG DOWNLOADS=/usr/src/downloads
-ARG LINUX_FIRMWARE=linux-firmware=1.173.17
-ARG LINUX_SOURCE=linux-source-5.0.0=5.0.0-43.47~18.04.1
 
+FROM ${UBUNTU} AS ubuntu
+ARG DOWNLOADS
+ARG LINUX_FIRMWARE=linux-firmware=1.187
+ARG LINUX_SOURCE=linux-source-5.4.0=5.4.0-21.25
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
  && apt-get --assume-yes update \
@@ -15,30 +16,32 @@ RUN set -x \
  && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
  && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
 
-
-FROM ${APT_GCC}
-ARG DOWNLOADS=/usr/src/downloads
-COPY --from=bionic ${DOWNLOADS}/ ${DOWNLOADS}/
-RUN apt-get update \
-    && apt-get install -y \
-        kernel-wedge \
-        libncurses-dev \
-        fakeroot \
-        cpio \
-        bison \
-        flex \
-        ccache \
-        vim \
-        gnupg2 \
-        locales \
-        bc \
-        kmod \
-        libelf-dev \
-        rsync \
-        gawk  \
-        libudev-dev \
-        pciutils-dev \
-    && rm -f /bin/sh && ln -s /bin/bash /bin/sh
+FROM ${BUILD}
+ARG DOWNLOADS
+COPY --from=ubuntu ${DOWNLOADS}/ ${DOWNLOADS}/
+RUN apt-get --assume-yes update \
+ && apt-get --assume-yes install \
+    bc \
+    bison \
+    ccache \
+    cpio \
+    dkms \
+    fakeroot \
+    flex \
+    gawk  \
+    gcc-9 \
+    gnupg2 \
+    kernel-wedge \
+    kmod \
+    libelf-dev \
+    liblz4-tool \
+    libncurses-dev \
+    libpci-dev \
+    libudev-dev \
+    locales \
+    rsync \
+    vim \
+ && rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 ########## Dapper Configuration #####################
 
