@@ -26,14 +26,11 @@ for p in `find ${PATCHES_DIR} -name "*.patch"`; do
 done
 
 # https://www.wireguard.com/compilation/
-WG_URL="https://git.zx2c4.com"
-WG_REPO="wireguard-linux-compat"
 WG_DIR=$(mktemp -d)
-git clone "${WG_URL}/${WG_REPO}" "$WG_DIR"
-${WG_DIR}/kernel-tree-scripts/create-patch.sh | patch -p1
-
+git clone "${WG_URL}/${WG_REPO}" -b "$WG_TAG" "$WG_DIR"
+"${WG_DIR}/kernel-tree-scripts/create-patch.sh" | patch -p1
 CONFIG="debian.hwe/config/config.common.ubuntu"
-echo CONFIG_WIREGUARD=m >> $CONFIG
-echo CONFIG_WIREGUARD_DEBUG=n >> $CONFIG
+echo CONFIG_WIREGUARD=m >>$CONFIG
+echo CONFIG_WIREGUARD_DEBUG=n >>$CONFIG
 
 popd

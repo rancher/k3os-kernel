@@ -18,6 +18,10 @@ RUN set -x \
 
 FROM ${APT_GCC}
 ARG DOWNLOADS=/usr/src/downloads
+# Wireguard support, included in Linux in 5.6+
+ARG WG_URL="https://git.zx2c4.com"
+ARG WG_REPO="wireguard-linux-compat"
+ARG WG_TAG=v1.0.20200401
 COPY --from=bionic ${DOWNLOADS}/ ${DOWNLOADS}/
 RUN apt-get update \
     && apt-get install -y \
@@ -54,6 +58,9 @@ WORKDIR ${DAPPER_SOURCE}
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 ENV DOWNLOADS ${DOWNLOADS}
+ENV WG_URL=${WG_URL}
+ENV WG_REPO=${WG_REPO}
+ENV WG_TAG=${WG_TAG}
 
 ENTRYPOINT ["./scripts/entry"]
 CMD ["ci"]
