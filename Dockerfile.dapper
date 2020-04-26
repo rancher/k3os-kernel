@@ -1,9 +1,9 @@
 ARG APT_GCC=library/gcc:9.2
 
-FROM library/ubuntu:bionic AS bionic
+FROM library/ubuntu:focal AS focal
 ARG DOWNLOADS=/usr/src/downloads
-ARG LINUX_FIRMWARE=linux-firmware=1.173.17
-ARG LINUX_SOURCE=linux-source-5.0.0=5.0.0-43.47~18.04.1
+ARG LINUX_FIRMWARE=linux-firmware=1.187
+ARG LINUX_SOURCE=linux-source-5.4.0=5.4.0-26.30
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
@@ -18,7 +18,7 @@ RUN set -x \
 
 FROM ${APT_GCC}
 ARG DOWNLOADS=/usr/src/downloads
-COPY --from=bionic ${DOWNLOADS}/ ${DOWNLOADS}/
+COPY --from=focal ${DOWNLOADS}/ ${DOWNLOADS}/
 RUN apt-get update \
     && apt-get install -y \
         kernel-wedge \

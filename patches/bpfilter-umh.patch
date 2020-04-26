@@ -1,7 +1,7 @@
-diff -urbB kernel.unpatched/debian.hwe/config/config.common.ubuntu kernel/debian.hwe/config/config.common.ubuntu
---- kernel.unpatched/debian.hwe/config/config.common.ubuntu	2019-09-30 22:23:05.000000000 +0000
-+++ kernel/debian.hwe/config/config.common.ubuntu	2019-10-15 01:24:35.804607723 +0000
-@@ -1121,7 +1121,7 @@
+diff -urbB kernel/debian.master{,.unpatched}/config/config.common.ubuntu
+--- kernel/debian.master/config/config.common.ubuntu	2020-04-20 16:33:49.000000000 +0000
++++ kernel/debian.master.unpatched/config/config.common.ubuntu	2020-04-26 16:18:01.915796595 +0000
+@@ -1168,7 +1168,7 @@
  CONFIG_BOOT_PRINTK_DELAY=y
  CONFIG_BPF=y
  CONFIG_BPFILTER=y

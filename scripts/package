@@ -8,19 +8,20 @@ GENERIC_HEADERS_DIR=dist/generic/headers
 GENERIC_MAIN_DIR=dist/generic/main
 GENERIC_EXTRA_DIR=dist/generic/modules-extra
 
+KERNEL_VERSION=5.4
+
 mkdir -p ${GENERIC_HEADERS_DIR} ${GENERIC_MAIN_DIR} ${GENERIC_EXTRA_DIR}
 
 # headers
-dpkg-deb -x build/linux-headers-5.0.*.deb ${GENERIC_HEADERS_DIR}/
-dpkg-deb -x build/linux-hwe-5.0-headers-*.deb ${GENERIC_HEADERS_DIR}/
+dpkg-deb -x build/linux-headers-${KERNEL_VERSION}*.deb ${GENERIC_HEADERS_DIR}/
 
 # main modules and vmlinuz and firmware
-dpkg-deb -x build/linux-image-unsigned-5.0.*.deb ${GENERIC_MAIN_DIR}
-dpkg-deb -x build/linux-modules-5.0*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x build/linux-image-unsigned-${KERNEL_VERSION}*.deb ${GENERIC_MAIN_DIR}
+dpkg-deb -x build/linux-modules-${KERNEL_VERSION}*.deb ${GENERIC_MAIN_DIR}
 dpkg-deb -x ${DOWNLOADS}/ubuntu-firmware.deb ${GENERIC_MAIN_DIR}
 
 # extra modules
-dpkg-deb -x build/linux-modules-extra-5.0*.deb ${GENERIC_EXTRA_DIR}
+dpkg-deb -x build/linux-modules-extra-${KERNEL_VERSION}*.deb ${GENERIC_EXTRA_DIR}
 
 # package artifacts
 mkdir -p dist/artifacts

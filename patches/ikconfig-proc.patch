@@ -1,13 +1,13 @@
-diff -urbB kernel.unpatched/debian.hwe/config/config.common.ubuntu kernel/debian.hwe/config/config.common.ubuntu
---- kernel.unpatched/debian.hwe/config/config.common.ubuntu	2020-01-14 08:32:18.000000000 -0700
-+++ kernel/debian.hwe/config/config.common.ubuntu	2020-01-28 17:22:23.636051777 -0700
-@@ -4127,7 +4127,8 @@
+diff -urbB kernel/debian.master{,.unpatched}/config/config.common.ubuntu
+--- kernel/debian.master/config/config.common.ubuntu	2020-04-20 16:33:49.000000000 +0000
++++ kernel/debian.master.unpatched/config/config.common.ubuntu	2020-04-26 16:25:05.528157384 +0000
+@@ -4304,7 +4304,8 @@
  CONFIG_IIO_TRIGGER=y
  CONFIG_IIO_TRIGGERED_BUFFER=m
  CONFIG_IIO_TRIGGERED_EVENT=m
 -# CONFIG_IKCONFIG is not set
 +CONFIG_IKCONFIG=m
 +CONFIG_IKCONFIG_PROC=y
+ CONFIG_IKHEADERS=m
  CONFIG_IMA=y
  CONFIG_IMA_APPRAISE=y
- CONFIG_IMA_APPRAISE_BOOTPARAM=y
