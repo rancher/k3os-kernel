@@ -20,8 +20,17 @@ tar xf ${DOWNLOADS}/kernel/usr/src/linux-source-*/linux-source*.tar.bz2 -C ./bui
 # patches
 PATCHES_DIR=$(pwd)/patches
 pushd build/kernel
-for p in `find ${PATCHES_DIR} -name "*.patch"`; do
+for p in $(find ${PATCHES_DIR} -name "*.patch"); do
     echo "applying $p"
     patch -p1 -i $p
 done
+
+# https://www.wireguard.com/compilation/
+WG_DIR=$(mktemp -d)
+git clone "${WG_URL}/${WG_REPO}" -b "$WG_TAG" "$WG_DIR"
+"${WG_DIR}/kernel-tree-scripts/create-patch.sh" | patch -p1
+CONFIG="debian.hwe/config/config.common.ubuntu"
+echo CONFIG_WIREGUARD=m >>$CONFIG
+echo CONFIG_WIREGUARD_DEBUG=n >>$CONFIG
+
 popd
