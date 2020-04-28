@@ -7,37 +7,40 @@ ARG LINUX_SOURCE=linux-source-5.0.0=5.0.0-43.47~18.04.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
- && apt-get --assume-yes update \
- && apt-get --assume-yes download \
+    && apt-get --assume-yes update \
+    && apt-get --assume-yes download \
     ${LINUX_FIRMWARE} \
     ${LINUX_SOURCE} \
- && mkdir -vp ${DOWNLOADS} \
- && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
- && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
-
+    && mkdir -vp ${DOWNLOADS} \
+    && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
+    && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
 
 FROM ${APT_GCC}
 ARG DOWNLOADS=/usr/src/downloads
+# Wireguard support, included in Linux in 5.6+
+ARG WG_URL="https://git.zx2c4.com"
+ARG WG_REPO="wireguard-linux-compat"
+ARG WG_TAG=v1.0.20200413
 COPY --from=bionic ${DOWNLOADS}/ ${DOWNLOADS}/
 RUN apt-get update \
     && apt-get install -y \
-        kernel-wedge \
-        libncurses-dev \
-        fakeroot \
-        cpio \
-        bison \
-        flex \
-        ccache \
-        vim \
-        gnupg2 \
-        locales \
-        bc \
-        kmod \
-        libelf-dev \
-        rsync \
-        gawk  \
-        libudev-dev \
-        pciutils-dev \
+    kernel-wedge \
+    libncurses-dev \
+    fakeroot \
+    cpio \
+    bison \
+    flex \
+    ccache \
+    vim \
+    gnupg2 \
+    locales \
+    bc \
+    kmod \
+    libelf-dev \
+    rsync \
+    gawk  \
+    libudev-dev \
+    pciutils-dev \
     && rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 ########## Dapper Configuration #####################
@@ -54,6 +57,9 @@ WORKDIR ${DAPPER_SOURCE}
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 ENV DOWNLOADS ${DOWNLOADS}
+ENV WG_URL=${WG_URL}
+ENV WG_REPO=${WG_REPO}
+ENV WG_TAG=${WG_TAG}
 
 ENTRYPOINT ["./scripts/entry"]
 CMD ["ci"]
