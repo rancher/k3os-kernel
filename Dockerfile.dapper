@@ -1,9 +1,11 @@
-ARG APT_GCC=library/gcc:9.2
+#ARG APT_GCC=library/gcc:9.3
+ARG APT_GCC=library/ubuntu:focal
+ARG LINUX_SOURCE=linux-source-5.4.0=5.4.0-26.30
 
 FROM library/ubuntu:focal AS focal
 ARG DOWNLOADS=/usr/src/downloads
 ARG LINUX_FIRMWARE=linux-firmware=1.187
-ARG LINUX_SOURCE=linux-source-5.4.0=5.4.0-26.30
+ARG LINUX_SOURCE
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
@@ -17,27 +19,34 @@ RUN set -x \
 
 
 FROM ${APT_GCC}
+ARG LINUX_SOURCE
 ARG DOWNLOADS=/usr/src/downloads
+ENV DEBIAN_FRONTEND=noninteractive
 COPY --from=focal ${DOWNLOADS}/ ${DOWNLOADS}/
-RUN apt-get update \
+RUN sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get build-dep -y ${LINUX_SOURCE} \
     && apt-get install -y \
-        kernel-wedge \
-        libncurses-dev \
-        fakeroot \
-        cpio \
-        bison \
-        flex \
-        ccache \
-        vim \
-        gnupg2 \
-        locales \
         bc \
+        bison \
+        build-essential \
+        ccache \
+        cpio \
+        fakeroot \
+        flex \
+        gawk  \
+        gcc \
+        git \
+        gnupg2 \
+        kernel-wedge \
         kmod \
         libelf-dev \
-        rsync \
-        gawk  \
+        libncurses-dev \
+        libssl-dev \
         libudev-dev \
-        pciutils-dev \
+        locales \
+        rsync \
+        vim \
     && rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 ########## Dapper Configuration #####################
