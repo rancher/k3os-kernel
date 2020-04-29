@@ -17,6 +17,7 @@ debian/rules clean
 for abi in $(find . -mindepth 1 -maxdepth 2 -type d -name abi); do
     for ver in $abi/5.*; do
         echo bpfilter > $ver/modules.ignore
+        echo xr_usb_serial_common > $ver/modules.ignore
     done
 done
 debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false #skipmodule=true
