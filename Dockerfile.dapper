@@ -9,40 +9,43 @@ ARG LINUX_SOURCE
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
- && apt-get --assume-yes update \
- && apt-get --assume-yes download \
+    && apt-get --assume-yes update \
+    && apt-get --assume-yes download \
     ${LINUX_FIRMWARE} \
     ${LINUX_SOURCE} \
- && mkdir -vp ${DOWNLOADS} \
- && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
- && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
-
+    && mkdir -vp ${DOWNLOADS} \
+    && mv -vf linux-firmware* ${DOWNLOADS}/ubuntu-firmware.deb \
+    && mv -vf linux-source* ${DOWNLOADS}/ubuntu-kernel.deb
 
 FROM ${APT_GCC}
 ARG LINUX_SOURCE
 ARG DOWNLOADS=/usr/src/downloads
+# Wireguard support, included in Linux in 5.6+
+ARG WG_URL="https://git.zx2c4.com"
+ARG WG_REPO="wireguard-linux-compat"
+ARG WG_TAG=v1.0.20200413
 ENV DEBIAN_FRONTEND=noninteractive
 COPY --from=focal ${DOWNLOADS}/ ${DOWNLOADS}/
 RUN sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     && apt-get update \
     && apt-get build-dep -y ${LINUX_SOURCE} \
     && apt-get install -y \
-        bc \
-        bison \
-        build-essential \
+    bc \
+    bison \
+    build-essential \
         ccache \
-        cpio \
-        fakeroot \
-        flex \
-        gawk  \
+    cpio \
+    fakeroot \
+    flex \
+    gawk  \
         gcc \
         git \
-        gnupg2 \
-        kernel-wedge \
-        kmod \
-        libelf-dev \
-        libncurses-dev \
-        libssl-dev \
+    gnupg2 \
+    kernel-wedge \
+    kmod \
+    libelf-dev \
+    libncurses-dev \
+    libssl-dev \
         libudev-dev \
         locales \
         rsync \
@@ -63,6 +66,9 @@ WORKDIR ${DAPPER_SOURCE}
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 ENV DOWNLOADS ${DOWNLOADS}
+ENV WG_URL=${WG_URL}
+ENV WG_REPO=${WG_REPO}
+ENV WG_TAG=${WG_TAG}
 
 ENTRYPOINT ["./scripts/entry"]
 CMD ["ci"]
