@@ -33,23 +33,23 @@ RUN sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list \
     bc \
     bison \
     build-essential \
-        ccache \
+    ccache \
     cpio \
     fakeroot \
     flex \
     gawk  \
-        gcc \
-        git \
+    gcc \
+    git \
     gnupg2 \
     kernel-wedge \
     kmod \
     libelf-dev \
     libncurses-dev \
     libssl-dev \
-        libudev-dev \
-        locales \
-        rsync \
-        vim \
+    libudev-dev \
+    locales \
+    rsync \
+    vim \
     && rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 ########## Dapper Configuration #####################
