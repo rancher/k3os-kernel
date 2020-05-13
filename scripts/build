@@ -8,10 +8,12 @@ KERNEL_DIR=build/kernel
 
 # some hacking
 mkdir -p ${KERNEL_DIR}/debian/stamps
-chmod -R +x ${KERNEL_DIR}/debian/scripts
+chmod a+x ${KERNEL_DIR}/debian*/scripts/*
+chmod a+x ${KERNEL_DIR}/debian*/scripts/misc/*
 
 # kernel
 pushd ${KERNEL_DIR}
+unset -v ARCH KERNEL_DIR
 debian/rules clean
 # see https://wiki.ubuntu.com/KernelTeam/KernelMaintenance#Overriding_module_check_failures
 for abi in $(find . -mindepth 1 -maxdepth 2 -type d -name abi); do
