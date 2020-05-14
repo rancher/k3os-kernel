@@ -2,7 +2,7 @@ ARG APT_GCC=library/gcc:9.2
 
 FROM library/ubuntu:bionic AS bionic
 ARG DOWNLOADS=/usr/src/downloads
-ARG LINUX_FIRMWARE=linux-firmware=1.173.17
+ARG LINUX_FIRMWARE=linux-firmware=1.173.18
 ARG LINUX_SOURCE=linux-source-5.0.0=5.0.0-47.51~18.04.1
 
 ENV DEBIAN_FRONTEND=noninteractive
