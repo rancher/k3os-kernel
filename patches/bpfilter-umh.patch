@@ -1,7 +1,19 @@
-diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel/debian.master/config/config.common.ubuntu
---- kernel.unpatched/debian.master/config/config.common.ubuntu  2020-04-01 00:47:16.499541862 +0000
-+++ kernel/debian.master/config/config.common.ubuntu    2020-04-01 00:47:44.554871398 +0000
-@@ -1170,7 +1170,7 @@
+diff -urbB kernel.unpatched/debian.master/config/annotations kernel.bpfilter-umh/debian.master/config/annotations
+--- kernel.unpatched/debian.master/config/annotations	2020-07-09 23:50:26.000000000 +0000
++++ kernel.bpfilter-umh/debian.master/config/annotations	2020-08-05 17:59:22.792706399 +0000
+@@ -11825,7 +11825,7 @@
+ 
+ # Menu: Networking support >> Networking options >> TCP/IP networking >> BPF based packet filtering framework (BPFILTER)
+ CONFIG_BPFILTER                                 policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+-CONFIG_BPFILTER_UMH                             policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
++CONFIG_BPFILTER_UMH                             policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+ 
+ # Menu: Networking support >> Networking options >> TCP/IP networking >> INET: socket monitoring interface
+ CONFIG_INET_DIAG                                policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
+diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel.bpfilter-umh/debian.master/config/config.common.ubuntu
+--- kernel.unpatched/debian.master/config/config.common.ubuntu	2020-07-09 23:50:26.000000000 +0000
++++ kernel.bpfilter-umh/debian.master/config/config.common.ubuntu	2020-08-05 17:57:02.474005780 +0000
+@@ -1169,7 +1169,7 @@
  CONFIG_BOOT_PRINTK_DELAY=y
  CONFIG_BPF=y
  CONFIG_BPFILTER=y

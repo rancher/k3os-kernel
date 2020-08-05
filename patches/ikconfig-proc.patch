@@ -1,7 +1,19 @@
-diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel/debian.master/config/config.common.ubuntu
---- kernel.unpatched/debian.master/config/config.common.ubuntu  2020-04-01 00:47:16.499541862 +0000
-+++ kernel/debian.master/config/config.common.ubuntu    2020-04-01 00:47:44.554871398 +0000
-@@ -4311,7 +4311,8 @@
+diff -urbB kernel.unpatched/debian.master/config/annotations kernel.ikconfig/debian.master/config/annotations
+--- kernel.unpatched/debian.master/config/annotations	2020-07-09 23:50:26.000000000 +0000
++++ kernel.ikconfig/debian.master/config/annotations	2020-08-05 18:03:31.941519468 +0000
+@@ -10281,7 +10281,7 @@
+ CONFIG_USELIB                                   policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+ CONFIG_AUDIT                                    policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+ CONFIG_CPU_ISOLATION                            policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+-CONFIG_IKCONFIG                                 policy<{'amd64': 'n', 'arm64': 'n', 'armhf': 'n', 'i386': 'n', 'ppc64el': 'n', 's390x': 'n'}>
++CONFIG_IKCONFIG                                 policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
+ CONFIG_IKHEADERS                                policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
+ CONFIG_LOG_BUF_SHIFT                            policy<{'amd64': '18', 'arm64': '18', 'armhf': '17', 'i386': '17', 'ppc64el': '18', 's390x': '18'}>
+ CONFIG_LOG_CPU_MAX_BUF_SHIFT                    policy<{'amd64': '12', 'arm64': '12', 'armhf': '12', 'i386': '12', 'ppc64el': '12', 's390x': '12'}>
+diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel.ikconfig/debian.master/config/config.common.ubuntu
+--- kernel.unpatched/debian.master/config/config.common.ubuntu	2020-07-09 23:50:26.000000000 +0000
++++ kernel.ikconfig/debian.master/config/config.common.ubuntu	2020-08-05 18:02:22.992185660 +0000
+@@ -4304,7 +4304,8 @@
  CONFIG_IIO_TRIGGER=y
  CONFIG_IIO_TRIGGERED_BUFFER=m
  CONFIG_IIO_TRIGGERED_EVENT=m
