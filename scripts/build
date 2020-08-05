@@ -21,5 +21,5 @@ for abi in $(find . -mindepth 1 -maxdepth 2 -type d -name abi); do
         echo bpfilter > $ver/modules.ignore
     done
 done
-debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false #skipmodule=true
+debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false do_dkms_nvidia_server=false
 popd
