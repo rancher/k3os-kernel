@@ -4,7 +4,7 @@ ARG DOWNLOADS=/usr/src/downloads
 
 FROM ${UBUNTU} AS ubuntu
 ARG DOWNLOADS
-ARG LINUX_FIRMWARE=linux-firmware=1.187.4
+ARG LINUX_FIRMWARE=linux-firmware=1.187
 ARG LINUX_SOURCE=linux-source-5.4.0=5.4.0-58.61
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
