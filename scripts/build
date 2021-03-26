@@ -16,10 +16,11 @@ pushd ${KERNEL_DIR}
 unset -v ARCH KERNEL_DIR
 debian/rules clean
 # see https://wiki.ubuntu.com/KernelTeam/KernelMaintenance#Overriding_module_check_failures
-for abi in $(find . -mindepth 1 -maxdepth 2 -type d -name abi); do
-    for ver in $abi/5.*; do
-        echo bpfilter > $ver/modules.ignore
-    done
-done
-debian/rules binary-headers binary-generic do_zfs=false do_dkms_nvidia=false do_dkms_nvidia_server=false
+debian/rules binary-headers binary-generic \
+    do_zfs=false \
+    do_dkms_nvidia=false \
+    do_dkms_nvidia_server=false \
+	skipabi=true \
+	skipmodule=true \
+	skipretpoline=true
 popd
