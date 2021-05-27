@@ -20,6 +20,9 @@ tar xf ${DOWNLOADS}/kernel/usr/src/linux-source-*/linux-source*.tar.bz2 -C ./bui
 #rsync -a ${DOWNLOADS}/firmware/lib/firmware/* ./build/firmware/
 
 # patches
+if [ -n "${NOPATCHES}" ]; then
+    exit 0
+fi
 PATCHES_DIR=$(pwd)/patches
 pushd build/kernel
 for p in `find ${PATCHES_DIR} -name "*.patch"`; do

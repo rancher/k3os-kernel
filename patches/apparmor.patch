@@ -1,0 +1,11 @@
+diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel.apparmor/debian.master/config/config.common.ubuntu
+--- kernel.unpatched/debian.master/config/config.common.ubuntu	2021-04-14 16:35:30.000000000 +0000
++++ kernel.apparmor/debian.master/config/config.common.ubuntu	2021-05-27 19:21:07.766817302 +0000
+@@ -8508,6 +8508,7 @@
+ CONFIG_SECURITY=y
+ CONFIG_SECURITYFS=y
+ CONFIG_SECURITY_APPARMOR=y
++CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=0
+ # CONFIG_SECURITY_APPARMOR_DEBUG is not set
+ CONFIG_SECURITY_APPARMOR_HASH=y
+ CONFIG_SECURITY_APPARMOR_HASH_DEFAULT=y

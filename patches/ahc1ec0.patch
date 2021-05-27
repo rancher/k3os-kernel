@@ -1,0 +1,27 @@
+diff -urbB kernel.unpatched/debian.master/config/annotations kernel.ahce1c0/debian.master/config/annotations
+--- kernel.unpatched/debian.master/config/annotations	2021-04-14 16:35:30.000000000 +0000
++++ kernel.ahce1c0/debian.master/config/annotations	2021-05-27 21:06:25.366108765 +0000
+@@ -2615,7 +2615,6 @@
+ CONFIG_SENSORS_WM831X                           policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm'}>
+ CONFIG_SENSORS_WM8350                           policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm'}>
+ CONFIG_SENSORS_XGENE                            policy<{'amd64': 'm', 'arm64': 'm', 'i386': 'm'}>
+-CONFIG_SENSORS_AHC1EC0_HWMON                    policy<{'amd64': 'm'}>
+ CONFIG_SENSORS_ACPI_POWER                       policy<{'amd64': 'm', 'arm64': 'm', 'i386': 'm'}>
+ CONFIG_SENSORS_ATK0110                          policy<{'amd64': 'm', 'i386': 'm'}>
+ 
+@@ -4366,7 +4365,6 @@
+ CONFIG_MFD_STMFX                                policy<{'arm64': 'm', 'armhf': 'm', 'ppc64el': 'm'}>
+ CONFIG_MFD_VEXPRESS_SYSREG                      policy<{'arm64': 'y', 'armhf': 'y'}>
+ CONFIG_RAVE_SP_CORE                             policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'n'}>
+-CONFIG_MFD_AHC1EC0                              policy<{'amd64': 'm'}>
+ #
+ CONFIG_MFD_SM501                                note<boot essential on OMAP4>
+ CONFIG_MFD_TPS65217                             mark<ENFORCED> note<boot essential on AM335x>
+@@ -9483,7 +9481,6 @@
+ CONFIG_INTEL_MEI_WDT                            policy<{'amd64': 'm', 'i386': 'm'}>
+ CONFIG_NI903X_WDT                               policy<{'amd64': 'm', 'i386': 'm'}>
+ CONFIG_NIC7018_WDT                              policy<{'amd64': 'm', 'i386': 'm'}>
+-CONFIG_AHC1EC0_WDT                              policy<{'amd64': 'm'}>
+ CONFIG_BCM2835_WDT                              policy<{'arm64': 'm'}>
+ CONFIG_BCM7038_WDT                              policy<{'arm64': 'm'}>
+ CONFIG_MEN_A21_WDT                              policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
