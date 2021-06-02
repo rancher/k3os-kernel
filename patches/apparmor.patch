@@ -1,11 +1,24 @@
+diff -urbB kernel.unpatched/debian.master/config/annotations kernel.apparmor/debian.master/config/annotations
+--- kernel.unpatched/debian.master/config/annotations	2021-04-14 16:35:30.000000000 +0000
++++ kernel.apparmor/debian.master/config/annotations	2021-06-02 23:12:57.975350748 +0000
+@@ -12812,7 +12812,7 @@
+ CONFIG_HARDENED_USERCOPY_PAGESPAN               policy<{'amd64': 'n', 'arm64': 'n', 'armhf': 'n', 'i386': 'n', 'ppc64el': 'n', 's390x': 'n'}>
+ CONFIG_FORTIFY_SOURCE                           policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'y'}>
+ CONFIG_STATIC_USERMODEHELPER                    policy<{'amd64': 'n', 'arm64': 'n', 'armhf': 'n', 'i386': 'n', 'ppc64el': 'n', 's390x': 'n'}>
+-CONFIG_LSM                                      policy<{'amd64': '"lockdown,yama,integrity,apparmor"', 'arm64': '"lockdown,yama,integrity,apparmor"', 'armhf': '"lockdown,yama,integrity,apparmor"', 'i386': '"lockdown,yama,integrity,apparmor"', 'ppc64el': '"lockdown,yama,integrity,apparmor"', 's390x': '"lockdown,yama,integrity,apparmor"'}>
++CONFIG_LSM                                      policy<{'amd64': '"lockdown,yama,integrity"', 'arm64': '"lockdown,yama,integrity"', 'armhf': '"lockdown,yama,integrity"', 'i386': '"lockdown,yama,integrity"', 'ppc64el': '"lockdown,yama,integrity"', 's390x': '"lockdown,yama,integrity"'}>
+ #
+ CONFIG_LSM                                      mark<ENFORCED>
+ 
 diff -urbB kernel.unpatched/debian.master/config/config.common.ubuntu kernel.apparmor/debian.master/config/config.common.ubuntu
 --- kernel.unpatched/debian.master/config/config.common.ubuntu	2021-04-14 16:35:30.000000000 +0000
-+++ kernel.apparmor/debian.master/config/config.common.ubuntu	2021-05-27 19:21:07.766817302 +0000
-@@ -8508,6 +8508,7 @@
- CONFIG_SECURITY=y
- CONFIG_SECURITYFS=y
- CONFIG_SECURITY_APPARMOR=y
-+CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=0
- # CONFIG_SECURITY_APPARMOR_DEBUG is not set
- CONFIG_SECURITY_APPARMOR_HASH=y
- CONFIG_SECURITY_APPARMOR_HASH_DEFAULT=y
++++ kernel.apparmor/debian.master/config/config.common.ubuntu	2021-06-02 23:12:35.219507534 +0000
+@@ -5274,7 +5274,7 @@
+ # CONFIG_LP_CONSOLE is not set
+ CONFIG_LRU_CACHE=m
+ CONFIG_LSI_ET1011C_PHY=m
+-CONFIG_LSM="lockdown,yama,integrity,apparmor"
++CONFIG_LSM="lockdown,yama,integrity"
+ CONFIG_LSM_MMAP_MIN_ADDR=0
+ CONFIG_LS_SCFG_MSI=y
+ CONFIG_LTC1660=m
